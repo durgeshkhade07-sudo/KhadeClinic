@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Khade Clinic | Book Appointment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+        <div class="card main-card animate__animated animate__zoomIn">
+            <h2 class="text-center medical-title">Khade Clinic</h2>
+            <p class="text-center text-muted small mb-4">Available 24/7 for Your Care</p>
+            
+            <div id="form-container">
+                <input type="text" id="name" class="form-control custom-input mb-3" placeholder="Full Name">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <input type="number" id="age" class="form-control custom-input" placeholder="Age">
+                    </div>
+                    <div class="col-6">
+                        <select id="gender" class="form-select custom-input">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" id="mobile" class="form-control custom-input mb-3" placeholder="Mobile Number">
+                <select id="dept" class="form-select custom-input mb-4">
+                    <option value="General Physician">General Physician</option>
+                    <option value="Paediatric">Paediatric (Child Care)</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                </select>
+                <button onclick="submitBooking()" class="btn btn-medical w-100">Book Appointment</button>
+            </div>
+
+            <div id="success-container" class="d-none animate__animated animate__fadeIn">
+                <div class="result-box text-center">
+                    <p class="mb-1">Hello, <span id="display-name" class="fw-bold text-primary"></span></p>
+                    <small>Your Token Number</small>
+                    <h1 class="token-number" id="display-token">0</h1>
+                    <a id="pdf-btn" href="#" target="_blank" class="btn btn-outline-primary btn-sm w-100 mt-2">📄 Download Report</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center text-muted footer-text animate__animated animate__fadeInUp">
+            <p class="mb-0">📍 Main Road, Bank of India Bhiwapur 441201</p>
+            <p class="mb-0">📞 Helpline: 7709851625 | 🕒 24/7 Available</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function submitBooking() {
+            const data = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                mobile: document.getElementById('mobile').value,
+                department: document.getElementById('dept').value
+            };
+
+            if(!data.name || !data.age || !data.mobile) {
+                alert("Please enter all details!");
+                return;
+            }
+
+            try {
+                const res = await axios.post('/book', data);
+                document.getElementById('form-container').classList.add('d-none');
+                document.getElementById('success-container').classList.remove('d-none');
+                
+                document.getElementById('display-name').innerText = res.data.patient;
+                document.getElementById('display-token').innerText = res.data.token;
+                document.getElementById('pdf-btn').href = `/generate_pdf/${res.data.token}`;
+            } catch (err) {
+                alert("Connection error! Is the server running?");
+            }
+        }
+    </script>
+</body>
+</html>

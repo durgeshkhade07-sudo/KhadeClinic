@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+body {
+    background: radial-gradient(circle at center, #f0f9ff 0%, #cce7ff 100%);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.main-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 74, 153, 0.1);
+    border-top: 10px solid #004A99;
+    transition: 0.4s ease;
+}
+
+.main-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 74, 153, 0.2);
+}
+
+.medical-title {
+    color: #004A99;
+    font-weight: 800;
+    font-size: 30px;
+}
+
+.custom-input {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    background: #f8fafc;
+    transition: 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #004A99;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 74, 153, 0.1);
+}
+
+.btn-medical {
+    background: linear-gradient(135deg, #004A99 0%, #0066cc 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-medical:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+.result-box {
+    background: #f0f9ff;
+    border: 2px dashed #004A99;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.token-number {
+    font-size: 80px;
+    font-weight: 900;
+    color: #004A99;
+}
+
+.footer-text {
+    font-size: 13px;
+    line-height: 1.6;
+}

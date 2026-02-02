@@ -1,0 +1,18 @@
+<tbody id="list"></tbody>
+
+<script>
+async function load() {
+    const res = await axios.get('/api/appointments');
+    document.getElementById('list').innerHTML = res.data.map(a => `
+        <tr>
+            <td><span class="badge bg-primary fs-5">${a.token}</span></td>
+            <td>
+                <b>${a.name}</b><br>
+                <small class="text-muted">${a.age} Yrs | ${a.gender}</small>
+            </td>
+            <td>${a.dept}</td>
+            <td><button onclick="done(${a.id})" class="btn btn-success btn-sm">Done</button></td>
+        </tr>
+    `).join('');
+}
+</script>
